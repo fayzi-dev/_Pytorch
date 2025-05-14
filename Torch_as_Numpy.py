@@ -156,7 +156,7 @@ print(tensor_3d[1])
 var_a = torch.rand(8)
 
 print(var_a)
-#tensor([0.4220, 0.5786, 0.9455, 0.8057, 0.6775, 0.6087, 0.6179, 0.6932])
+# tensor([0.4220, 0.5786, 0.9455, 0.8057, 0.6775, 0.6087, 0.6179, 0.6932])
 print(var_a[0:1])
 # tensor([0.4220])
 print(var_a[2:5])
@@ -170,14 +170,14 @@ print(var_a[::2])
 # tensor([0.4220, 0.9455, 0.6775, 0.6179])
 
 print(var_a[2::3])
-#tensor([0.9455, 0.6087])
+# tensor([0.9455, 0.6087])
 
 
-print(var_a[[0,3,5,6]])
+print(var_a[[0, 3, 5, 6]])
 # tensor([0.4220, 0.8057, 0.6087, 0.6179])
 
 
-var_b = torch.randn(3,4)
+var_b = torch.randn(3, 4)
 print(var_b)
 # tensor([[-1.2157,  0.1295,  0.0967,  1.4086],
 #         [ 0.1915,  1.0041,  0.4198,  0.1882],
@@ -193,3 +193,54 @@ print(var_b[0:2, :])
 
 print(var_b[::2, 2])
 # tensor([ 0.0967, -0.7580])
+
+
+# Math Operations
+mat_a = torch.randint(1, 6, (2, 2))
+mat_b = torch.randint(1, 6, (2, 2))
+print(mat_a)
+# tensor([[3, 5],
+#         [4, 4]]) 
+
+print(mat_b)
+# tensor([[3, 2],
+#         [2, 2]])
+
+print(mat_a + mat_b)
+# tensor([[6, 7],
+#         [6, 6]])
+print(mat_a - mat_b)
+# tensor([[0, 3],
+#         [2, 2]])
+
+
+print(mat_a * mat_b)
+# tensor([[ 9, 10],
+#         [ 8,  8]])
+
+print(mat_a / mat_b)
+# tensor([[1.0000, 2.5000],
+#         [2.0000, 2.0000]])
+
+print(torch.matmul(mat_a, mat_b))
+# tensor([[19, 16],
+#         [20, 16]])
+
+# Broadcasting
+b_cast = torch.randint(1, 6, (2, 2, 3))
+print(b_cast)
+# tensor([[[3, 3, 4],
+#          [4, 3, 4]],
+# 
+#         [[4, 4, 1],
+#          [2, 5, 4]]])
+print(b_cast + 2)
+# tensor([[[5, 5, 6],
+#          [6, 5, 6]],
+# 
+#         [[6, 6, 3],
+#          [4, 7, 6]]])
+
+aa = torch.ones(3, 3)
+bb = torch.arange(0, 3)
+print(aa+bb)
