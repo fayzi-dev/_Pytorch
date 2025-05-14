@@ -31,6 +31,5 @@ if torch.cuda.is_available():
 else:
     print("CUDA is not available on this system.")
 
-
 # CPU Time: 0.021944 seconds
 # GPU Time: 0.004231 seconds
