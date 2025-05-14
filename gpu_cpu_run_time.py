@@ -11,6 +11,7 @@ C_cpu = torch.mm(A_cpu, B_cpu)
 end_cpu = time.time()
 cpu_time = end_cpu - start_cpu
 
+
 print(f"CPU Time: {cpu_time:.6f} seconds")
 
 if torch.cuda.is_available():
