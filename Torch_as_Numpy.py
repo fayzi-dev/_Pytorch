@@ -21,7 +21,7 @@ matrix_1 = torch.tensor([[1, 2, 3, 3],
 print(matrix_1)
 
 
-# create column vector
+# create column vector 2d
 vector_col = torch.tensor([[5],
                            [3],
                            [6],
@@ -36,4 +36,3 @@ tensor_3d = torch.tensor([[[1,2],
                            [6,7]]
                           ])
 print(tensor_3d)
-
