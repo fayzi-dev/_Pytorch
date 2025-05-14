@@ -61,15 +61,31 @@ print(vector_uint)  # tensor([1., 1., 1.], dtype=torch.float64)
 vector_uint = vector_uint.type(torch.float64)
 print(vector_uint)  # tensor([1., 2., 3.], dtype=torch.float64)
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-print(device)
-avg_time = []
-matrix_2 = torch.randn(3000, 3000)
-# matric_2 = matrix_2.cuda()
-matrix_2 = matrix_2.cpu()
-for i in range(100):
-    start = time()
-    output = matrix_2.matmul(matrix_2)
-    avg_time.append(time() - start)  # 0.20432689428329467 On GPU || 0.24642916679382323 On CPU
+# device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+# print(device)
+# avg_time = []
+# matrix_2 = torch.randn(3000, 3000)
+# # matric_2 = matrix_2.cuda()
+# matrix_2 = matrix_2.cpu()
+# for i in range(100):
+#     start = time()
+#     output = matrix_2.matmul(matrix_2)
+#     avg_time.append(time() - start)  # 0.20432689428329467 On GPU || 0.24642916679382323 On CPU
+#
+# print(np.mean(avg_time))
 
-print(np.mean(avg_time))
+
+print(vector.__class__)  # <class 'torch.Tensor'>
+print(matrix_1.shape)  # torch.Size([4, 4])
+print(matrix_1.size())  # torch.Size([4, 4])
+print(matrix.min())  # tensor(1)
+print(matrix.max())  # tensor(9)
+print(matrix.float().mean())  # tensor(5.)
+print(matrix.float().std())  # tensor(2.7386)
+print(matrix.float().var())  # tensor(7.5000)
+
+#transpose matrix
+print(matrix.t())
+# tensor([[1, 4, 7],
+# [2, 5, 8],
+# [3, 6, 9]])
