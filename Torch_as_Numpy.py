@@ -20,19 +20,8 @@ matrix_1 = torch.tensor([[1, 2, 3, 3],
                          [4, 5, 6, 3],
                          [7, 8, 9, 3],
                          [10, 11, 12, 3]])
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-# print(device)
-avg_time = []
-matrix_2 = torch.randn(3000, 3000)
-# matric_2 = matrix_2.to(device)
-for i in range(100):
-    start = time()
-    output = matrix_2.matmul(matrix_2)
-    avg_time.append(time() - start)  # 0.23631200790405274 On GPU ||
 
-print(np.mean(avg_time))
-
-# print(matrix_1)
+print(matrix_1)
 
 # create column vector 2d
 vector_col = torch.tensor([[5],
@@ -71,3 +60,15 @@ print(vector_uint)  # tensor([1., 1., 1.], dtype=torch.float64)
 
 vector_uint = vector_uint.type(torch.float64)
 print(vector_uint)  # tensor([1., 2., 3.], dtype=torch.float64)
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(device)
+avg_time = []
+matrix_2 = torch.randn(3000, 3000)
+# matric_2 = matrix_2.to(device)
+for i in range(100):
+    start = time()
+    output = matrix_2.matmul(matrix_2)
+    avg_time.append(time() - start)  # 0.25487872123718264 On GPU || 0.2678131794929504 On CPU
+
+print(np.mean(avg_time))
