@@ -125,3 +125,71 @@ print(torch.randperm(20))
 
 torch.manual_seed(123)
 print(torch.randperm(20))
+
+# Indexing AND Slicing
+
+# Indexing
+a = [1, 2, 3, 4, 5]
+print(a[-1])
+print(a[2])
+
+b = torch.randint(1, 10, (3, 3))
+print(b)
+print(b[0, 0])
+print(b[1, 2])
+print(b[2])
+# tensor([[2, 8, 2],
+#         [8, 1, 8],
+#         [1, 4, 1]])
+# tensor(2)
+# tensor(8)
+# tensor([1, 4, 1])
+
+tensor_3d = torch.randint(100, (3, 2, 3))
+print(tensor_3d)
+
+print(tensor_3d[0, 0, 0])
+
+print(tensor_3d[1])
+
+# Slicing
+var_a = torch.rand(8)
+
+print(var_a)
+#tensor([0.4220, 0.5786, 0.9455, 0.8057, 0.6775, 0.6087, 0.6179, 0.6932])
+print(var_a[0:1])
+# tensor([0.4220])
+print(var_a[2:5])
+# tensor([0.9455, 0.8057, 0.6775])
+print(var_a[6:])
+# tensor([0.6179, 0.6932])
+print(var_a[0:-2])
+# tensor([0.4220, 0.5786, 0.9455, 0.8057, 0.6775, 0.6087])
+
+print(var_a[::2])
+# tensor([0.4220, 0.9455, 0.6775, 0.6179])
+
+print(var_a[2::3])
+#tensor([0.9455, 0.6087])
+
+
+print(var_a[[0,3,5,6]])
+# tensor([0.4220, 0.8057, 0.6087, 0.6179])
+
+
+var_b = torch.randn(3,4)
+print(var_b)
+# tensor([[-1.2157,  0.1295,  0.0967,  1.4086],
+#         [ 0.1915,  1.0041,  0.4198,  0.1882],
+#         [-0.6040, -0.0417, -0.7580, -1.2113]])
+
+print(var_b[0:2, 1:-1])
+# tensor([[0.1295, 0.0967],
+#         [1.0041, 0.4198]])
+
+print(var_b[0:2, :])
+# tensor([[-1.2157,  0.1295,  0.0967,  1.4086],
+#         [ 0.1915,  1.0041,  0.4198,  0.1882]])
+
+print(var_b[::2, 2])
+# tensor([ 0.0967, -0.7580])
