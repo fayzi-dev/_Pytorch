@@ -96,10 +96,32 @@ print(tensor_ones)
 tensor_zeros = torch.zeros((3, 3, 2), dtype=torch.uint8)
 print(tensor_zeros)
 
-tensor_eye = torch.eye(8,9, dtype=torch.uint8)
+tensor_eye = torch.eye(8, 9, dtype=torch.uint8)
 print(tensor_eye)
 
-print(torch.full((5,2,3), 9.5))
+print(torch.full((5, 2, 3), 9.5))
 
 # create tensor with the same size as  col_vec
 print(torch.zeros_like(matrix))
+
+# create tensor fill rand [0,1]
+print(torch.rand(4, 5))
+# create tensor fill rand normal distribution
+print(torch.randn(4, 5))
+
+import matplotlib.pyplot as plt
+
+# Normal distribution
+plt.hist(torch.rand(10000))
+# plt.show()
+
+# Gaussian distribution
+plt.hist(torch.randn(10000), 100)
+# plt.show()
+
+print(torch.randint(20, 30, (3, 3)))
+
+print(torch.randperm(20))
+
+torch.manual_seed(123)
+print(torch.randperm(20))
