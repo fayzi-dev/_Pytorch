@@ -84,8 +84,22 @@ print(matrix.float().mean())  # tensor(5.)
 print(matrix.float().std())  # tensor(2.7386)
 print(matrix.float().var())  # tensor(7.5000)
 
-#transpose matrix
+# transpose matrix
 print(matrix.t())
 # tensor([[1, 4, 7],
 # [2, 5, 8],
 # [3, 6, 9]])
+
+tensor_ones = torch.ones((2, 2), dtype=torch.float64)
+print(tensor_ones)
+
+tensor_zeros = torch.zeros((3, 3, 2), dtype=torch.uint8)
+print(tensor_zeros)
+
+tensor_eye = torch.eye(8,9, dtype=torch.uint8)
+print(tensor_eye)
+
+print(torch.full((5,2,3), 9.5))
+
+# create tensor with the same size as  col_vec
+print(torch.zeros_like(matrix))
