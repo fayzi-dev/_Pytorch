@@ -65,10 +65,11 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 avg_time = []
 matrix_2 = torch.randn(3000, 3000)
-# matric_2 = matrix_2.to(device)
+# matric_2 = matrix_2.cuda()
+matrix_2 = matrix_2.cpu()
 for i in range(100):
     start = time()
     output = matrix_2.matmul(matrix_2)
-    avg_time.append(time() - start)  # 0.25487872123718264 On GPU || 0.2678131794929504 On CPU
+    avg_time.append(time() - start)  # 0.20432689428329467 On GPU || 0.24642916679382323 On CPU
 
 print(np.mean(avg_time))
