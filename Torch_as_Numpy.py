@@ -243,4 +243,47 @@ print(b_cast + 2)
 
 aa = torch.ones(3, 3)
 bb = torch.arange(0, 3)
-print(aa+bb)
+print(aa + bb)
+
+# Dimension Transformation
+a_1 = torch.randn(2, 6)
+b_1 = torch.randn(3)
+
+print(a_1)
+
+print(a_1.view(2, 3, 2))
+
+print(a_1.reshape(2, 3, 2))
+
+# Transform tensor to vector
+print(a_1.reshape(-1))
+print(a_1.view(-1))
+
+r = torch.randn(1, 6)
+print(r)
+# tensor([[-0.4979, -0.1584,  0.1426,  1.6831,  0.3073, -0.1533]])
+print(r.repeat(4, 1))
+# tensor([[-0.4979, -0.1584,  0.1426,  1.6831,  0.3073, -0.1533],
+#         [-0.4979, -0.1584,  0.1426,  1.6831,  0.3073, -0.1533],
+#         [-0.4979, -0.1584,  0.1426,  1.6831,  0.3073, -0.1533],
+#         [-0.4979, -0.1584,  0.1426,  1.6831,  0.3073, -0.1533]])
+
+print(torch.cat((r, r)))
+# tensor([[-0.4979, -0.1584,  0.1426,  1.6831,  0.3073, -0.1533],
+#         [-0.4979, -0.1584,  0.1426,  1.6831,  0.3073, -0.1533]])
+
+print(torch.cat((r, r), dim=1))
+# tensor([[-0.4979, -0.1584,  0.1426,  1.6831,  0.3073, -0.1533, -0.4979, -0.1584,
+#           0.1426,  1.6831,  0.3073, -0.1533]])
+
+# add new dim
+print(r.shape)
+# torch.Size([1, 6])
+print(r.unsqueeze(2))
+# tensor([[[-0.4979, -0.1584,  0.1426,  1.6831,  0.3073, -0.1533]]])
+print(r.unsqueeze(2).shape)
+# torch.Size([1, 6, 1])
+
+# remove dim size 1
+print(r.squeeze(-1).shape)
+# torch.Size([1, 6])
