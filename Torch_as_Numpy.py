@@ -47,3 +47,12 @@ print(sample_x)  # output :tensor([1., 2., 3.], dtype=torch.float64)
 
 sample_y = torch.tensor([1, -2, 3], dtype=torch.uint8)
 print(sample_y)  # output NOTE!!! = tensor([  1, 254,   3], dtype=torch.uint8)
+
+vector_uint = torch.tensor([1, 2, 3], dtype=torch.uint8)
+vector_uint = vector_uint.half()
+print(vector_uint)  # tensor([1., 2., 3.], dtype=torch.float16)
+vector_uint = vector_uint.double()
+print(vector_uint)  # tensor([1., 1., 1.], dtype=torch.float64)
+
+vector_uint = vector_uint.type(torch.float64)
+print(vector_uint)  # tensor([1., 2., 3.], dtype=torch.float64)
