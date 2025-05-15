@@ -1,14 +1,18 @@
+# Create Neuron By Class
+from operator import matmul
+
 import torch
-from sympy.physics.biomechanics import activation
-from torch.linalg import matmul
 
-# sample input
-x = torch.tensor([[1., 2., 0., 4., 1.],
-                  [0., 1., 1., 1., 1.],
-                  [2., 3., 0., 1., 4.]])
 
-w = torch.tensor([1., 0.5, 1., -1., -0.5])
-b = torch.tensor(1.)
+class Neuron:
+    def __init__(self, m, af):
+        self.w = torch.randn(m)
+        self.b = torch.randn(1)
+        self.af = af
+
+    def __call__(self, x):
+        y = self.af(matmul(self.w, x) + self.b)
+        return y
 
 
 # create linear activation function
@@ -16,38 +20,14 @@ def linear(x):
     return x
 
 
-# create step activation function
-def step(x):
-    if x > 0:
-        y = torch.tensor([1.])
-
-    elif x < 0:
-        y = torch.tensor([0.])
-    else:
-        y = torch.tensor([0.5])
-    return y
+neuron = Neuron(5, linear)
+# print(neuron) #<__main__.Neuron object at 0x0000028370D1CB80>
+# print(neuron.w) #tensor([ 0.6657, -1.1392,  0.1168])
+# print(neuron.b) #tensor([1.7826])
 
 
-# create Neuron
-def neuron(x, w, b, af):
-    z = 0
-    for xi, wi in zip(x, w):
-        z += xi * wi
-    z += b
-    y = af(z)
-    return y
+inputs = torch.tensor([[1., 2., 0., 4., 1.],
+                       [0., 1., 1., 1., 1.],
+                       [2., 3., 0., 1., 4.]])
 
-
-# test Neuron
-# print(neuron(x[0], w, b, linear))  # tensor(-1.5000)
-
-# print(neuron(x[0], w, b, step))  # tensor([0.])
-
-
-# Vectorization
-def neuron(x, w, b, af):
-    y=af(matmul(x, w) + b)
-    return y
-
-print(neuron(x[0], w, b, linear)) #tensor(-1.5000)
-print(neuron(x[0], w, b, step)) #tensor([0.])
+print(neuron(inputs[0]))  # tensor([6.1333])
