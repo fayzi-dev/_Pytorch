@@ -1,5 +1,6 @@
 import torch
 from sympy.physics.biomechanics import activation
+from torch.linalg import matmul
 
 # sample input
 x = torch.tensor([[1., 2., 0., 4., 1.],
@@ -40,4 +41,13 @@ def neuron(x, w, b, af):
 # test Neuron
 # print(neuron(x[0], w, b, linear))  # tensor(-1.5000)
 
-print(neuron(x[0], w, b, step))  # tensor([0.])
+# print(neuron(x[0], w, b, step))  # tensor([0.])
+
+
+# Vectorization
+def neuron(x, w, b, af):
+    y=af(matmul(x, w) + b)
+    return y
+
+print(neuron(x[0], w, b, linear)) #tensor(-1.5000)
+print(neuron(x[0], w, b, step)) #tensor([0.])
