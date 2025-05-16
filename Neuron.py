@@ -107,7 +107,7 @@ yp = neuron_1(x[0])
   # e = F.mse_loss(yp, yt[0])
 
 e =F.mse_loss(yp, yt[[0]])
-print(yt[[0]].shape)
-print(yp.shape)
+print(yt[[0]].shape) #torch.Size([1])
+print(yp.shape)#torch.Size([1])
 print(e) #tensor(2.2142)
 
