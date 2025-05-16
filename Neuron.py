@@ -78,10 +78,24 @@ class NeuronNetwork:
     def __call__(self, x):
         if self.af == 'linear':
             y = self.linear(matmul(self.w, x) + self.b)
+        elif self.af == 'step':
+            y = self.step(matmul(self.w, x) + self.b)
         return y
 
     def linear(self, x):
         return x
+
+    # create by step activation functions
+    def step(self,x):
+        if x > 0:
+            y = torch.tensor([1.])
+
+        elif x < 0:
+            y = torch.tensor([0.])
+        else:
+            y = torch.tensor([0.5])
+        return y
+
 
 
 x = torch.tensor([[1., 2., 0., 4., 1.],
@@ -90,7 +104,8 @@ x = torch.tensor([[1., 2., 0., 4., 1.],
 # print(x[0].shape)
 yt = torch.tensor([0.01, 0.03, 0.5, 0.8, 1.])
 
-neuron_1 = NeuronNetwork(5, 'linear')
+# neuron_1 = NeuronNetwork(5, 'linear')
+neuron_1 = NeuronNetwork(5, 'step')
 
 yp = neuron_1(x[0])
 # print(yp.shape)
@@ -106,8 +121,12 @@ yp = neuron_1(x[0])
 # print(e) #Neuron.py:103: UserWarning: Using a target size (torch.Size([])) that is different to the input size (torch.Size([1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
   # e = F.mse_loss(yp, yt[0])
 
+# e =F.mse_loss(yp, yt[[0]])
+# print(yt[[0]].shape) #torch.Size([1])
+# print(yp.shape)#torch.Size([1])
+# print(e) #tensor(2.2142)
+
 e =F.mse_loss(yp, yt[[0]])
 print(yt[[0]].shape) #torch.Size([1])
 print(yp.shape)#torch.Size([1])
-print(e) #tensor(2.2142)
-
+print(e) #tensor(0.9801)
