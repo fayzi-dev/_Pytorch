@@ -49,7 +49,7 @@ def funcx4(x, y):
     return x * torch.exp(-x ** 2 - y ** 2) + 0.05 * (x ** 2 + y ** 2)
 
 
-def gradient_descent3d(func, xi, yi, xeta, N):
+def gradient_descent3d(func, xi, yi, eta, N):
     for iteration in range(N):
         func(xi, yi).backward()
         xi.data -= eta * xi.grad
@@ -65,4 +65,7 @@ eta = 0.1
 N=100
 
 gd_4 = gradient_descent3d(funcx4, xi, yi, yi, N)
-print(gd_4)  #(tensor(-0.6691, requires_grad=True), tensor(0.0089, requires_grad=True))
+print(gd_4)  #(tensor(-0.6690, requires_grad=True), tensor(0.0103, requires_grad=True))
+
+
+
