@@ -189,6 +189,7 @@ print(neuron_2.b.grad)
 
 
 # Add optimizer in to neuron_2
+
 params = [neuron_1.w, neuron_1.b]
 eta = 0.1
 optimizer = optim.SGD(params, eta)
