@@ -194,7 +194,6 @@ eta = 0.1
 optimizer = optim.SGD(params, eta)
 print(optimizer)
 
-
 optimizer.step()
 optimizer.zero_grad()
 
