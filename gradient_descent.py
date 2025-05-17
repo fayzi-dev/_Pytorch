@@ -1,4 +1,6 @@
 import torch
+import torch.nn.functional as F
+from torch.linalg import matmul
 
 
 def funcx1(x):
@@ -59,13 +61,60 @@ def gradient_descent3d(func, xi, yi, eta, N):
     # return xi.data
     return xi, yi
 
+
 xi = torch.tensor(-2., requires_grad=True)
 yi = torch.tensor(2., requires_grad=True)
 eta = 0.1
-N=100
+N = 100
 
 gd_4 = gradient_descent3d(funcx4, xi, yi, yi, N)
-print(gd_4)  #(tensor(-0.6690, requires_grad=True), tensor(0.0103, requires_grad=True))
+print(gd_4)  # (tensor(-0.6690, requires_grad=True), tensor(0.0103, requires_grad=True))
+
+# connect Autograd to Neural Network
+x = torch.tensor([[1., 2., 0., 4., 1.],
+                  [0., 1., 1., 3., 2.],
+                  [3., 2., 0., 5., 2.5]])
+yt = torch.tensor([1., 2., 0.])
 
 
 
+
+
+
+class Neuron:
+    def __init__(self, m, af):
+        self.w = torch.randn(m,requires_grad=True)
+        self.b = torch.randn(1,requires_grad=True)
+        self.af = af
+
+    def __call__(self, x):
+        if self.af == 'step':
+            y = self.step(matmul(self.w, x) + self.b)
+        elif self.af == 'linear':
+            y = self.linear(matmul(self.w, x) + self.b)
+        return y
+
+    # create by step activation functions
+    def step(self, x):
+        if x > 0:
+            y = torch.tensor([1.])
+        elif x < 0:
+            y = torch.tensor([0.])
+        else:
+            y = torch.tensor([0.5])
+        return y
+
+    def linear(self, x):
+        return x
+
+neuron_1 = Neuron(5, 'linear')
+yp =neuron_1(x[0])
+print(yt[[0]].shape)
+print(yp.shape)
+e = F.mse_loss(yp, yt[[0]])
+print(e) #tensor(21.1735)
+
+
+print(e.backward()) #tensor(8.5489, grad_fn=<MseLossBackward0>)
+print(neuron_1.w.grad) #tensor([ -7.7594, -15.5188,  -0.0000, -31.0376,  -7.7594])
+print(neuron_1.b.grad)#tensor([-0.2774])
