@@ -172,3 +172,38 @@ print(yi)#tensor(0.0006, requires_grad=True)
 
 op= optimizer.param_groups[0]['params']
 print(op)#[tensor(-0.6691, requires_grad=True), tensor(0.0006, requires_grad=True)]
+
+
+
+
+neuron_2 = Neuron(5, 'linear')
+yp =neuron_2(x[0])
+
+e = F.mse_loss(yp, yt[[0]])
+print(e) #tensor(23.0369, grad_fn=<MseLossBackward0>)
+
+
+e.backward()
+print(neuron_2.w.grad)
+print(neuron_2.b.grad)
+
+
+# Add optimizer in to neuron_2
+params = [neuron_1.w, neuron_1.b]
+eta = 0.1
+optimizer = optim.SGD(params, eta)
+print(optimizer)
+
+
+optimizer.step()
+optimizer.zero_grad()
+
+for iteration in range(100):
+    yp = neuron_2(x[0])
+    e = F.mse_loss(yp, yt[[0]])
+    e.backward()
+    optimizer.step()
+    optimizer.zero_grad()
+
+print(optimizer.param_groups[0]['params'])
+#[tensor([-0.2050,  1.4696,  0.5158,  2.8458,  0.5092], requires_grad=True), tensor([0.0259], requires_grad=True)]
