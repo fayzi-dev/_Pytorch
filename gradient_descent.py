@@ -1,6 +1,7 @@
 import torch
 import torch.nn.functional as F
 from torch.linalg import matmul
+from torch import optim
 
 
 def funcx1(x):
@@ -77,14 +78,10 @@ x = torch.tensor([[1., 2., 0., 4., 1.],
 yt = torch.tensor([1., 2., 0.])
 
 
-
-
-
-
 class Neuron:
     def __init__(self, m, af):
-        self.w = torch.randn(m,requires_grad=True)
-        self.b = torch.randn(1,requires_grad=True)
+        self.w = torch.randn(m, requires_grad=True)
+        self.b = torch.randn(1, requires_grad=True)
         self.af = af
 
     def __call__(self, x):
@@ -107,14 +104,71 @@ class Neuron:
     def linear(self, x):
         return x
 
+
 neuron_1 = Neuron(5, 'linear')
-yp =neuron_1(x[0])
+yp = neuron_1(x[0])
 print(yt[[0]].shape)
 print(yp.shape)
 e = F.mse_loss(yp, yt[[0]])
-print(e) #tensor(21.1735)
+print(e)  # tensor(21.1735)
+
+print(e.backward())  # tensor(8.5489, grad_fn=<MseLossBackward0>)
+print(neuron_1.w.grad)  # tensor([ -7.7594, -15.5188,  -0.0000, -31.0376,  -7.7594])
+print(neuron_1.b.grad)  # tensor([-0.2774])
 
 
-print(e.backward()) #tensor(8.5489, grad_fn=<MseLossBackward0>)
-print(neuron_1.w.grad) #tensor([ -7.7594, -15.5188,  -0.0000, -31.0376,  -7.7594])
-print(neuron_1.b.grad)#tensor([-0.2774])
+# Use optimizer pytorch
+
+def funcx5(x):
+    return x ** 2
+
+
+xi = torch.tensor(-1., requires_grad=True)
+
+params = [xi]
+eta = 0.1
+optimizer = optim.SGD(params, eta)
+print(optimizer)
+# Parameter Group 0
+#     dampening: 0
+#     differentiable: False
+#     foreach: None
+#     fused: None
+#     lr: 0.1
+#     maximize: False
+#     momentum: 0
+#     nesterov: False
+#     weight_decay: 0
+# )
+
+N = 25
+for iteration in range(N):
+    funcx5(xi).backward()
+    optimizer.step()
+    optimizer.zero_grad()
+
+print(xi)  # tensor(-0.0038, requires_grad=True)
+
+
+def funcx6(x,y):
+    return x * torch.exp(-x ** 2 - y ** 2) + 0.05 * (x ** 2 + y ** 2)
+
+
+xi = torch.tensor(-1.5, requires_grad=True)
+yi = torch.tensor(1.5, requires_grad=True)
+
+params = [xi,yi]
+eta = 0.1
+optimizer = optim.SGD(params, eta)
+
+n = 100
+for iteration in range(n):
+    funcx6(xi,yi).backward()
+    optimizer.step()
+    optimizer.zero_grad()
+
+print(xi)#tensor(-0.6691, requires_grad=True)
+print(yi)#tensor(0.0006, requires_grad=True)
+
+op= optimizer.param_groups[0]['params']
+print(op)#[tensor(-0.6691, requires_grad=True), tensor(0.0006, requires_grad=True)]
