@@ -267,9 +267,9 @@ plt.show()
 y_prediction = model(X_test)
 print(X_test.size())#torch.Size([50, 1])
 print(y_prediction.size())#torch.Size([50, 1])
-
-
 print(F.l1_loss(y_prediction.squeeze(), y_test).item())#0.7454901933670044
+
+
 
 
 
