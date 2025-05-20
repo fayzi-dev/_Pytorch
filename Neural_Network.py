@@ -20,9 +20,10 @@ y_train = torch.Tensor(y_train)
 print(X_train.shape)  # torch.Size([200, 1])
 print(y_train.shape)  # torch.Size([200])
 
-x_test = torch.Tensorf(X_test)
+X_test = torch.Tensor(X_test)
+
 y_test = torch.Tensor(y_test)
-print(x_test.shape)  # torch.Size([200])
+print(X_test.shape)  # torch.Size([200])
 print(y_test.shape)  # torch.Size([50])
 
 plt.scatter(X_train, y_train)
@@ -264,4 +265,4 @@ plt.show()
 
 # Test model
 y_pred = model(X_test)
-print(F.l1_loss(y_pred.squeeze(), y_test))
+print(F.l1_loss(y_pred.squeeze(), y_test).item())#0.7454901933670044
