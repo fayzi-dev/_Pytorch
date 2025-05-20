@@ -264,5 +264,10 @@ plt.plot(x_visual.detach(), y_visual.detach(), 'b')
 plt.show()
 
 # Test model
-y_pred = model(X_test)
-print(F.l1_loss(y_pred.squeeze(), y_test).item())#0.7454901933670044
+y_prediction = model(X_test)
+print(X_test.size())#torch.Size([50, 1])
+print(y_prediction.size())torch.Size([50, 1])
+
+
+print(F.l1_loss(y_prediction.squeeze(), y_test).item())#0.7454901933670044
+
