@@ -47,12 +47,14 @@ optimizer = optim.SGD(model.parameters(), lr=0.01)
 
 # Train Loop
 N = 200
+loss_list = []
 for iteration in range(N):
     yp = model(X_train)
     loss = criterion(yp.squeeze(), y_train)
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
+    loss_list.append(loss.item())
     print(loss.item())
 # Output loss:
 # 42.65182113647461
@@ -263,12 +265,14 @@ plt.scatter(X_train, y_train)
 plt.plot(x_visual.detach(), y_visual.detach(), 'b')
 plt.show()
 
+# Learning Curve
+plt.plot(range(N), loss_list)
+plt.show()
 # Test model
 y_prediction = model(X_test)
 print(X_test.size())#torch.Size([50, 1])
 print(y_prediction.size())#torch.Size([50, 1])
 print(F.l1_loss(y_prediction.squeeze(), y_test).item())#0.7454901933670044
-
 
 
 
